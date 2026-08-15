@@ -1,0 +1,17 @@
+# Environments
+.env
+.venv/
+venv/
+ENV/
+env/
+cmd.md
+
+# Python caching
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Flask/OS
+instance/
+.pytest_cache/
+.DS_Store

@@ -1,0 +1,545 @@
+/* =========================================
+   GLOBAL VARIABLES & THEME DEFINITIONS
+========================================= */
+:root {
+    /* -----------------------------------------
+       DARK THEME (Default)
+    ----------------------------------------- */
+    --bg-color: #07070a;
+    
+    /* Liquid Glass */
+    --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-highlight: rgba(255, 255, 255, 0.25);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --sweep-color: rgba(255, 255, 255, 0.15);
+    
+    /* Typography & Status */
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent-neon: #00f0ff;
+    --positive: #00ffc3;
+    --negative: #ff0055;
+    
+    /* Gradients & Ambient Blobs */
+    --cyber-gradient: linear-gradient(to right, rgb(153, 0, 255), rgb(0, 240, 255),blue, rgb(255, 0, 217), rgb(153, 0, 255));
+    --blob-1: rgba(0, 240, 255, 0.2);
+    --blob-2: rgba(153, 0, 255, 0.2);
+    
+    /* Interactive Elements (Buttons, Inputs, Tables) */
+    --btn-bg: rgba(0, 240, 255, 0.05);
+    --btn-border: rgba(0, 240, 255, 0.5);
+    --btn-border-top: rgba(0, 240, 255, 0.8);
+    --btn-hover-bg: rgba(0, 240, 255, 0.15);
+    --btn-hover-shadow: 0 0 25px rgba(0, 240, 255, 0.6), inset 0 0 15px rgba(0, 240, 255, 0.2);
+    --btn-text-hover: #fff;
+    --btn-hover-border: #fff;
+    
+    --input-bg: rgba(255, 255, 255, 0.03);
+    --input-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+    --select-option-bg: #0f1217;
+    --row-hover-bg: rgba(255, 255, 255, 0.05);
+}
+
+/* -----------------------------------------
+   LIGHT THEME (Ultra-Realistic Liquid Glass)
+----------------------------------------- */
+.light-theme {
+    /* Cool, light background to make the white glass pop */
+    --bg-color: #eef2f6; 
+    
+    /* Liquid Glass Surface - High blur, milky frost */
+    --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.2) 100%);
+    --glass-border: rgba(255, 255, 255, 0.8);
+    --glass-highlight: rgba(255, 255, 255, 1);
+    
+    /* Layered 3D Shadow Engine (Simulates thick glass volume) */
+    --glass-shadow: 
+        0 30px 60px -12px rgba(0, 0, 0, 0.12),         /* Massive ambient drop shadow */
+        0 10px 20px -8px rgba(0, 0, 0, 0.08),          /* Core grounding shadow */
+        inset 0 3px 6px -1px rgba(255, 255, 255, 1),   /* Top-edge bright liquid rim */
+        inset -2px 0 4px -1px rgba(255, 255, 255, 0.7),/* Side-edge ambient reflection */
+        inset 0 -3px 5px -1px rgba(0, 0, 0, 0.04);     /* Bottom inner volume/density */
+        
+    --sweep-color: rgba(255, 255, 255, 0.9);
+    
+    /* Typography & Status */
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --accent-neon: #3b82f6;
+    --positive: #059669;
+    --negative: #e11d48;
+    
+    /* Vibrant Gradients & Saturated Blobs for heavy refraction */
+    --cyber-gradient: linear-gradient(to right, #0066ff, #00ccff, #9900ff, #ff0099, #0066ff);
+    --blob-1: rgba(0, 102, 255, 0.35); /* Vivid Blue */
+    --blob-2: rgba(255, 0, 153, 0.35); /* Vivid Pink */
+    
+    /* Interactive Elements */
+    --btn-bg: rgba(255, 255, 255, 0.7);
+    --btn-border: rgba(255, 255, 255, 1);
+    --btn-border-top: #ffffff;
+    --btn-hover-bg: rgba(255, 255, 255, 0.95);
+    --btn-hover-shadow: 0 10px 25px rgba(59, 130, 246, 0.25), inset 0 0 10px rgba(255, 255, 255, 1);
+    --btn-text-hover: #0066ff;
+    --btn-hover-border: #0066ff;
+    
+    --input-bg: rgba(255, 255, 255, 0.5);
+    --input-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.08);
+    --select-option-bg: #ffffff;
+    --row-hover-bg: rgba(255, 255, 255, 0.6);
+}
+
+/* =========================================
+   BASE RESET
+========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.5;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* =========================================
+   AMBIENT BACKGROUND EFFECTS 
+========================================= */
+.dashboard::before {
+    content: '';
+    height: 0;
+    width: 40rem;
+    position: absolute;
+    top: 20%;
+    left: -10%;
+    box-shadow: 0 0 700px 120px var(--blob-1);
+    rotate: -30deg;
+    z-index: -1;
+    transition: box-shadow 0.6s ease;
+}
+
+.dashboard::after {
+    content: '';
+    height: 0;
+    width: 30rem;
+    position: absolute;
+    bottom: 10%;
+    right: -5%;
+    box-shadow: 0 0 600px 100px var(--blob-2);
+    rotate: 30deg;
+    z-index: -1;
+    transition: box-shadow 0.6s ease;
+}
+
+.dashboard {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+/* =========================================
+   HEADER & NAVIGATION
+========================================= */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    margin-bottom: 40px;
+    border-radius: 20px;
+    
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px); /* Increased blur for thicker glass */
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: var(--glass-shadow);
+    
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-highlight);
+    border-left: 1px solid var(--glass-highlight);
+    transition: all 0.5s ease;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: var(--cyber-gradient);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate-gradient 3s linear infinite;
+    margin: 0;
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+@keyframes animate-gradient {
+    to { background-position: 200%; }
+}
+
+@keyframes autoDisplayAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================
+   BUTTONS & INPUTS
+========================================= */
+button, .btn-signing {
+    background: var(--btn-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--accent-neon);
+    padding: 10px 25px;
+    border: 1px solid var(--btn-border);
+    border-top: 1px solid var(--btn-border-top);
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+button:hover, .btn-signing:hover {
+    background: var(--btn-hover-bg);
+    box-shadow: var(--btn-hover-shadow);
+    transform: translateY(-2px);
+    color: var(--btn-text-hover);
+    border-color: var(--btn-hover-border);
+}
+
+/* =========================================
+   FILE INPUT (Liquid Glass Styling)
+========================================= */
+input[type="file"] {
+    color: var(--text-secondary);
+    background: var(--input-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-highlight);
+    
+    /* Make the container a perfect pill shape */
+    padding: 4px 15px 4px 4px; 
+    border-radius: 30px;
+    margin-right: 15px;
+    box-shadow: var(--input-shadow);
+    transition: all 0.5s ease;
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Target the ugly default gray button inside the input */
+input[type="file"]::file-selector-button {
+    background: var(--btn-bg);
+    color: var(--accent-neon);
+    border: 1px solid var(--btn-border);
+    border-top: 1px solid var(--btn-border-top);
+    
+    /* Match our primary button styles */
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Add the neon hover glow to the file button */
+input[type="file"]::file-selector-button:hover {
+    background: var(--btn-hover-bg);
+    box-shadow: var(--btn-hover-shadow);
+    color: var(--btn-text-hover);
+    border-color: var(--btn-hover-border);
+    transform: translateY(-1px);
+}
+
+/* =========================================
+   CARDS (Liquid Glass Morphism)
+========================================= */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 25px;
+    animation: autoDisplayAnimation 0.6s ease-out forwards;
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 25px;
+    animation: autoDisplayAnimation 0.8s ease-out forwards;
+}
+
+.card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px); /* Increased blur for thicker glass */
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-highlight);
+    border-left: 1px solid var(--glass-highlight);
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: var(--glass-shadow);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, var(--sweep-color) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    transition: 0.6s ease-in-out;
+    pointer-events: none;
+}
+
+.card:hover {
+    box-shadow: var(--glass-shadow), 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+    border-color: var(--glass-highlight);
+    transform: translateY(-4px);
+}
+
+.card:hover::before {
+    left: 200%;
+}
+
+.card h3 {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.card h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    background: var(--cyber-gradient);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate-gradient 4s linear infinite;
+}
+
+/* =========================================
+   PLOTLY CHART VISIBILITY FIX
+========================================= */
+/* These rules force Plotly's inline SVGs to respect our CSS variables */
+.js-plotly-plot .g-gtitle text, 
+.js-plotly-plot .g-xtitle text, 
+.js-plotly-plot .g-ytitle text,
+.js-plotly-plot .xtick text, 
+.js-plotly-plot .ytick text, 
+.js-plotly-plot .legendtext,
+.js-plotly-plot .pielabeltext,
+.js-plotly-plot .hovertext text {
+    fill: var(--text-primary) !important;
+}
+
+.js-plotly-plot .xgrid, 
+.js-plotly-plot .ygrid {
+    stroke: var(--glass-border) !important;
+    stroke-width: 1px !important;
+}
+
+.js-plotly-plot .zeroline {
+    stroke: var(--text-secondary) !important;
+}
+
+/* =========================================
+   DATA TABLE STYLING
+========================================= */
+.table-container {
+    animation: autoDisplayAnimation 1s ease-out forwards;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    text-align: left;
+    padding: 15px 10px;
+    border-bottom: 1px solid var(--glass-border);
+    color: var(--text-primary);
+}
+
+th { 
+    color: var(--accent-neon);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+tr {
+    transition: background-color 0.3s ease;
+}
+
+tr:hover td {
+    background-color: var(--row-hover-bg);
+    backdrop-filter: blur(5px);
+}
+
+/* =========================================
+   OPTIMIZATION PANEL
+========================================= */
+.optimization-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    margin-top: 25px;
+    animation: autoDisplayAnimation 1.2s ease-out forwards;
+}
+
+select {
+    background: var(--input-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-highlight);
+    padding: 10px 15px;
+    border-radius: 15px;
+    outline: none;
+    font-size: 1rem;
+    box-shadow: var(--input-shadow);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+select:hover, select:focus {
+    background: var(--btn-hover-bg);
+    border-color: var(--accent-neon);
+}
+
+select option {
+    background-color: var(--select-option-bg);
+    color: var(--text-primary);
+}
+
+#opt-results {
+    color: var(--positive);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-left: auto;
+}
+
+/* =========================================
+   MEDIA QUERIES (Responsive)
+========================================= */
+@media screen and (max-width: 900px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 20px 10px;
+    }
+    
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .card h2 {
+        font-size: 2rem;
+    }
+
+    .optimization-panel {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    #opt-results {
+        margin-left: 0;
+        text-align: center;
+        margin-top: 15px;
+    }
+}
+
+/* Fix for Plotly Chart Heights */
+#allocation-chart, 
+#risk-return-chart {
+    min-height: 420px;
+}
+
+/* =========================================
+   SCROLLBAR STYLING (For the Table Slider)
+========================================= */
+.table-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: var(--glass-border);
+    border-radius: 10px;
+    margin: 0 15px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: var(--accent-neon);
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: var(--positive);
+}
+
+/* =========================================
+   MOBILE TABLE COMPRESSION
+========================================= */
+@media screen and (max-width: 650px) {
+    th, td {
+        padding: 10px 8px; 
+        font-size: 0.8rem;
+    }
+    
+    th {
+        font-size: 0.75rem;
+    }
+}

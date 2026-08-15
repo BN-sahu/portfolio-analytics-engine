@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quant Portfolio Analytics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>Portfolio Analytics</h1>
+            <div class="controls">
+                <!-- Add this toggle button -->
+                <button id="theme-toggle" onclick="toggleTheme()">☀️ Light Mode</button>
+                
+                <input type="file" id="csv-upload" accept=".csv" />
+                <button onclick="uploadPortfolio()">Analyze Uploaded CSV</button>
+            </div>
+        </header>
+
+        <div class="kpi-grid">
+            <div class="card">
+                <h3>Expected Annual Return</h3>
+                <h2 id="kpi-return">--</h2>
+            </div>
+            <div class="card">
+                <h3>Annualized Volatility</h3>
+                <h2 id="kpi-volatility">--</h2>
+            </div>
+            <div class="card">
+                <h3>Sharpe Ratio</h3>
+                <h2 id="kpi-sharpe">--</h2>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="card" id="allocation-chart"></div>
+            <div class="card" id="risk-return-chart"></div>
+        </div>
+
+        <div class="card table-container">
+            <h3>Security Breakdown</h3>
+            <table id="holdings-table">
+                <thead>
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Weight</th>
+                        <th>Ann. Return</th>
+                        <th>Volatility</th>
+                        <th>Beta</th>
+                        <th>Historical VaR (95%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Populated by JS -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="card optimization-panel">
+            <h3>Optimization Engine</h3>
+            <select id="opt-objective">
+                <option value="sharpe">Max Sharpe Ratio</option>
+                <option value="volatility">Minimum Volatility</option>
+            </select>
+            <button onclick="optimizePortfolio()">Generate Efficient Frontier Weights</button>
+            <div id="opt-results"></div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
