@@ -1,3 +1,4 @@
+Markdown
 # 📈 Quant Portfolio Analytics Engine
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
@@ -56,7 +57,9 @@ To run this application locally on your machine, follow these steps:
 ```bash
 git clone [https://github.com/BN-sahu/portfolio-analytics-engine.git](https://github.com/BN-sahu/portfolio-analytics-engine.git)
 cd portfolio-analytics-engine
+2. Create and activate a virtual environment
 
+Bash
 # On Windows:
 python -m venv venv
 .\venv\Scripts\activate
@@ -64,12 +67,15 @@ python -m venv venv
 # On macOS/Linux:
 python3 -m venv venv
 source venv/bin/activate
+3. Install dependencies
 
+Bash
 pip install -r requirements.txt
+4. Run the development server
 
+Bash
 python app.py
-
-## The dashboard will be available at http://127.0.0.1:5000
+The dashboard will be available at http://127.0.0.1:5000
 
 📊 Usage Guide
 Default View: Upon loading, the dashboard calculates metrics for a default Big Tech portfolio (AAPL, MSFT, GOOGL).
