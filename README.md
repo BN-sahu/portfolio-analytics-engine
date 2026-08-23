@@ -49,35 +49,8 @@ The frontend features a responsive, dual-theme (Dark/Light) "Liquid Glassmorphis
 
 ---
 
-## 🚀 Local Setup & Installation
+## 📊 Usage Guide
 
-To run this application locally on your machine, follow these steps:
-
-**1. Clone the repository**
-```bash
-git clone [https://github.com/BN-sahu/portfolio-analytics-engine.git](https://github.com/BN-sahu/portfolio-analytics-engine.git)
-cd portfolio-analytics-engine
-2. Create and activate a virtual environment
-
-Bash
-# On Windows:
-python -m venv venv
-.\venv\Scripts\activate
-
-# On macOS/Linux:
-python3 -m venv venv
-source venv/bin/activate
-3. Install dependencies
-
-Bash
-pip install -r requirements.txt
-4. Run the development server
-
-Bash
-python app.py
-The dashboard will be available at http://127.0.0.1:5000
-
-📊 Usage Guide
 Default View: Upon loading, the dashboard calculates metrics for a default Big Tech portfolio (AAPL, MSFT, GOOGL).
 
 Upload Custom Portfolio: Click "Choose File" to upload a CSV. The CSV must contain Ticker and Weight columns. The backend will parse the data, fetch historical prices, and update the dashboard.
@@ -86,9 +59,41 @@ Optimize: In the Optimization Engine panel, select your objective (Max Sharpe or
 
 Theme Toggle: Click the ☀️/🌙 button in the top right to switch between the Dark Neon and Frosted Light glass themes.
 
-🔒 Security & Performance Notes
+## 🔒 Security & Performance Notes
+
 Concurrency: Production deployment utilizes Gunicorn with multiple workers (-w 4) to prevent long-running SciPy mathematical optimizations from blocking concurrent user requests.
 
 Data Privacy: User-uploaded CSV files are processed entirely in memory and immediately discarded. No financial data is written to a database or stored on the server.
 
 Designed & Developed by BN Sahu
+
+## 🚀 Local Setup & Installation
+
+To run this application locally on your machine, follow these steps:
+
+**1. Clone the repository**
+```bash
+git clone [https://github.com/BN-sahu/portfolio-analytics-engine.git](https://github.com/BN-sahu/portfolio-analytics-engine.git)
+cd portfolio-analytics-engine
+
+**2. Create and activate a virtual environment**
+```bash
+# On Windows:
+python -m venv venv
+.\venv\Scripts\activate
+
+# On macOS/Linux:
+python3 -m venv venv
+source venv/bin/activate
+
+**3. Install dependencies**
+
+Bash
+pip install -r requirements.txt
+
+**4. Run the development server**
+
+Bash
+python app.py
+
+The dashboard will be available at http://127.0.0.1:5000
