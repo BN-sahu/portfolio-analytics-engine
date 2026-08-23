@@ -7,7 +7,7 @@
 ![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
 ![Railway](https://img.shields.io/badge/Railway-131415?style=for-the-badge&logo=railway&logoColor=white)
 
-> **Live Demo:** [portfolio-analytics-engine.up.railway.app]
+> **Live Demo:** [portfolio-analytics-engine.up.railway.app](https://portfolio-analytics-engine.up.railway.app/)
 
 ---
 
@@ -54,5 +54,35 @@ To run this application locally on your machine, follow these steps:
 
 **1. Clone the repository**
 ```bash
-git clone [https://github.com/BN-sahu/portfolio-analytics-engine](https://github.com/BN-sahu/portfolio-analytics-engine)
+git clone [https://github.com/BN-sahu/portfolio-analytics-engine.git](https://github.com/BN-sahu/portfolio-analytics-engine.git)
 cd portfolio-analytics-engine
+
+# On Windows:
+python -m venv venv
+.\venv\Scripts\activate
+
+# On macOS/Linux:
+python3 -m venv venv
+source venv/bin/activate
+
+pip install -r requirements.txt
+
+python app.py
+
+## The dashboard will be available at http://127.0.0.1:5000
+
+📊 Usage Guide
+Default View: Upon loading, the dashboard calculates metrics for a default Big Tech portfolio (AAPL, MSFT, GOOGL).
+
+Upload Custom Portfolio: Click "Choose File" to upload a CSV. The CSV must contain Ticker and Weight columns. The backend will parse the data, fetch historical prices, and update the dashboard.
+
+Optimize: In the Optimization Engine panel, select your objective (Max Sharpe or Min Volatility) and click "Generate Efficient Frontier Weights" to see the mathematically optimal allocation for your selected assets.
+
+Theme Toggle: Click the ☀️/🌙 button in the top right to switch between the Dark Neon and Frosted Light glass themes.
+
+🔒 Security & Performance Notes
+Concurrency: Production deployment utilizes Gunicorn with multiple workers (-w 4) to prevent long-running SciPy mathematical optimizations from blocking concurrent user requests.
+
+Data Privacy: User-uploaded CSV files are processed entirely in memory and immediately discarded. No financial data is written to a database or stored on the server.
+
+Designed & Developed by BN Sahu
